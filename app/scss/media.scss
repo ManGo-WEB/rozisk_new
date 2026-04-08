@@ -1,0 +1,55 @@
+@media (max-width: 696px) {
+	.header {
+		&__container {
+		flex-direction: column;
+		}
+		&__logo {
+			margin-bottom: 20px;
+			img {
+				max-width: 100%
+			}
+		}
+	}
+
+	.accordion-item.open .accordion-content {
+		max-height: 100%
+	}
+
+	.contacts {
+		&__block {
+			padding: 0 10px;
+		}
+		&__social {
+			gap: 12px;
+			padding: 15px 0;
+		}
+	}
+
+	.social__icon {
+		width: 56px;
+		height: 56px;
+	}
+
+	.map_container {
+		padding-bottom: 60%;
+	}
+
+	.partnership {
+		&__row {
+			flex-direction: column;
+			gap: 40px;
+		}
+		&__logo {
+			height: 60px;
+		}
+		&__text {
+			font-size: 13px;
+		}
+	}
+};
+
+@media (max-width: 440px) {
+	.map_container {
+		display: none;
+	}
+}
