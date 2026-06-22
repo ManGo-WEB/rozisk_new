@@ -1,19 +1,25 @@
-const { src, dest, watch, parallel, series } = require('gulp');
+import gulp from 'gulp';
+const { src, dest, watch, parallel, series } = gulp;
 
-const sass = require('gulp-sass')(require('sass'));
-const concat = require('gulp-concat');
-const uglify = require('gulp-uglify-es').default;
-const browserSync = require('browser-sync').create();
-const autoprefixer = require('gulp-autoprefixer');
-const clean = require('gulp-clean');
-const avif = require('gulp-avif');
-const webp = require('gulp-webp');
-const imagemin = require('gulp-imagemin');
-const newer = require('gulp-newer');
-const fonter = require('gulp-fonter');
-const ttf2woff2 = require('gulp-ttf2woff2');
-const svgSprite = require('gulp-svg-sprite');
-const include = require('gulp-include');
+import gulpSass from 'gulp-sass';
+import * as dartSass from 'sass';
+const sass = gulpSass(dartSass);
+
+import concat from 'gulp-concat';
+import uglifyEs from 'gulp-uglify-es';
+const uglify = uglifyEs.default;
+import bs from 'browser-sync';
+const browserSync = bs.create();
+import autoprefixer from 'gulp-autoprefixer';
+import clean from 'gulp-clean';
+import avif from 'gulp-avif';
+import webp from 'gulp-webp';
+import imagemin from 'gulp-imagemin';
+import newer from 'gulp-newer';
+import fonter from 'gulp-fonter';
+import ttf2woff2 from 'gulp-ttf2woff2';
+import svgSprite from 'gulp-svg-sprite';
+import include from 'gulp-include';
 
 function pages() {
 	return src('app/pages/*.html')
@@ -85,8 +91,6 @@ function styles() {
 		.pipe(browserSync.stream());
 }
 
-exports.default = styles;
-
 function watching() {
 	browserSync.init({
 		server: {
@@ -100,9 +104,8 @@ function watching() {
 	watch(['app/*.html']).on('change', browserSync.reload);
 }
 
-
 function cleanDist() {
-	return src('dist')
+	return src('dist', { allowEmpty: true })
 		.pipe(clean())
 }
 
@@ -116,18 +119,11 @@ function building() {
 		'app/fonts/*.*',
 		'app/js/main.min.js',
 		'app/**/*.html'
-	], { base: 'app' })
+	], { base: 'app', encoding: false })
 		.pipe(dest('dist'))
 }
 
-exports.styles = styles;
-exports.images = images;
-exports.fonts = fonts;
-exports.pages = pages;
-exports.building = building;
-exports.sprite = sprite;
-exports.scripts = scripts;
-exports.watching = watching;
+export { styles, images, fonts, pages, building, sprite, scripts, watching };
 
-exports.build = series(cleanDist, building);
-exports.default = parallel(styles, images, scripts, pages, watching);
+export const build = series(cleanDist, building);
+export default parallel(styles, images, scripts, pages, watching);
