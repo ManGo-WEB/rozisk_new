@@ -167,7 +167,7 @@ button {
 }
 @font-face {
   font-family: "Montserrat";
-  src: url("../fonts/Montserrat-Medium.woff2") format("woff2"), url("../font/Montserrat-Medium.woff") format("woff");
+  src: url("../fonts/Montserrat-Medium.woff2") format("woff2"), url("../fonts/Montserrat-Medium.woff") format("woff");
   font-style: normal;
   font-weight: 500;
 }
@@ -584,6 +584,6 @@ p {
 }
 @media (max-width: 440px) {
   .map_container {
-    display: none;
+    padding-bottom: 75%;
   }
 }
